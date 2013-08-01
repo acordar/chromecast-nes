@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>chromecast-nes</title>
+	</head>
+	<link rel="stylesheet" type="text/css" href="css/style.css"> 
+	<body>
+		<canvas class="nes"></canvas>
+	</body>
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="https://www.gstatic.com/cast/js/receiver/1.0/cast_receiver.js"></script>
+	<script>
+		$(function() {
+			var receiver = new cast.receiver.Receiver(
+				'YOUR APP ID HERE', ['Test'],
+				"",
+				5);
+
+			var canvas = $(".nes")[0];
+			canvas.width = 256;
+			canvas.height = 240;
+
+			var channelHandler = new cast.receiver.ChannelHandler('Test');
+			channelHandler.addChannelFactory(
+				receiver.createChannelFactory('Test'));
+
+			receiver.start();
+			
+			//listen for messages from chromecast-sender
+			channelHandler.addEventListener(cast.receiver.Channel.EventType.MESSAGE, onMessage.bind(this));		
+
+			channelHandler.addEventListener(cast.receiver.Channel.EventType.ERROR, onError.bind(this));		
+
+			//Receives keyboard event from chromecast-sender
+			function onMessage(event) {	
+				var e;
+				if(event.message.type == "writeFrame") {														
+					
+					var ctx = canvas.getContext('2d')
+					var img = new Image();
+					img.onload = function() {					  
+					  ctx.drawImage(img,0,0);
+					}
+					img.src = event.message.frame;				
+			 	} 
+			 }	
+
+			function onError(event) {	
+				console.log("ERROR: ");
+				console.log(event);
+			 }
+		});
+	</script>
+</html>

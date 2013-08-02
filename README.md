@@ -36,7 +36,7 @@ Instructions
 
 7) Debug with following instructions https://developers.google.com/cast/developing_your_receiver#debugging
 
-8) Add ROMs to the roms folder, and populate list on line 50 with whatever ROMs you have.
+8) Add ROMs to the roms folder, and populate list on line 50 of sender/index.html with whatever ROMs you have.
 
 Tweak Settings
 --------------

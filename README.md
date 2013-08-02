@@ -34,6 +34,8 @@ Instructions
 
 7) Debug with following instructions https://developers.google.com/cast/developing_your_receiver#debugging
 
+8) Add ROMs to the roms folder, and populate list on line 50 with whatever ROMs you have.
+
 Tweak Settings
 --------------
 In sender/js/jsnes.js. There are two variables on lines 6889 and 6890 that can be used to adjust the quality and performance of the emulator.
